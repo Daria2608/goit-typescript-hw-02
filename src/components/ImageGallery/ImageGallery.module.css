@@ -1,0 +1,18 @@
+
+.list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.item {
+    border: 1px solid brown;
+    padding: 10px;
+    border-radius: 10px;
+    list-style-type: none;
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+}

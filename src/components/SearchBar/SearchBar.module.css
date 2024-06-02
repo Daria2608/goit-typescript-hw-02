@@ -1,0 +1,19 @@
+.form {
+    width: 100%;
+    background-color: burlywood;
+    padding: 15px 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.input {
+    height: 30px;
+    border-radius: 20px;
+    margin-right: 20px;
+}
+
+.button {
+    background-color: #4fa94d;
+    border-radius: 20px;
+    height: 30px;
+}
