@@ -1,9 +1,12 @@
 
 import css from './SearchBar.module.css'
 import toast, { Toaster } from 'react-hot-toast';
+import React, { FormEvent, FC } from 'react';
+import { SearchBarProps } from './SearchBar.types';
 
-export default function SearchBar({ onSubmit }) {
-    
+
+const SearchBar: React.FC<SearchBarProps> = ({ onSubmit }) => { 
+
     const notify = () => toast.error('It`s required', {
     duration: 2000,
     position: "top-center",
@@ -12,16 +15,18 @@ export default function SearchBar({ onSubmit }) {
            }
         });
 
-    const hendleSearch = (e) => {
+    const hendleSearch = (e : FormEvent<HTMLFormElement>) => {
 
         e.preventDefault()
-        const query = e.target.elements.search.value.trim();
+        const form = e.target as HTMLFormElement;
+        const queryInput = form.elements.namedItem('search') as HTMLInputElement; 
+        const query : string = queryInput.value.trim();
         if (query === "") {
             notify()
         }
         else {
             onSubmit(query)
-            e.target.reset()
+            form.reset()
         }
     }
 
@@ -40,3 +45,4 @@ export default function SearchBar({ onSubmit }) {
   </form>
 </header>
 }
+export default SearchBar;

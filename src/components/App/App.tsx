@@ -6,50 +6,51 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import ImageModal from '../ImageModal/ImageModal';
 import {fetchArticles} from '../../api'
-
 import { useState, useEffect } from 'react';
+
+import { Photo } from './App.types';
 
 export default function App() {
 
-  const [articles, setArticles] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(false)
-  const [page, setPage] = useState(1)
-  const [query, setQuery] = useState('')
-  const [modalIsOpen, setModalIsOpen] = useState(true)
-  const [image, setImage] = useState(null)
-  const [alt, setAlt] = useState(null)
+  const [articles, setArticles] = useState<Photo[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [error, setError] = useState<boolean>(false)
+  const [page, setPage] = useState<number>(1)
+  const [query, setQuery] = useState<string>('')
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(true)
+  const [image, setImage] = useState<string | null>(null)
+  const [alt, setAlt] = useState<string | null>(null)
 
-  const handleLoadMore = () => {
+  const handleLoadMore = () : void => {
   setPage(page + 1)
 }
 
-  const handleSubmit = async (newArticles) => {
+  const handleSubmit = async (newArticles : string) : Promise<void>=> {
     setQuery(newArticles)
     setPage(1)
     setArticles([])
   }
 
 
-  const openModal = (image, alt) => {
+  const openModal = (image : string, alt : string) : void => {
     setImage(image)
     setAlt(alt)
     setModalIsOpen(true)
   } 
 
-  const closeModal = () => {
+  const closeModal = () : void => {
     setModalIsOpen(false)
   }
 
 
-  useEffect(() => {
+  useEffect(() : void => {
     if (!query) {
       return
     }
-    async function getArticles() { 
+    async function getArticles() : Promise<void> { 
      try {
       setIsLoading(true);
-      const data = await fetchArticles(query, page);
+      const data : Photo[] = await fetchArticles(query, page);
        setArticles(prevArticles => {
         return [...prevArticles, ...data]
       });
